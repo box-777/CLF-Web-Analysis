@@ -43,11 +43,12 @@ def user_agent_count(path: str, sort_results=False):
                 ua_dict[user_agent] = 1
 
     # Sort dictionary
-    sorted_ua_dict = dict(sorted(ua_dict.items(), key=lambda item:item[1], reverse=True))
+    if sort_results:
+        ua_dict = dict(sorted(ua_dict.items(), key=lambda item:item[1], reverse=True))
 
 
     # Print the results
-    for ua, count in sorted_ua_dict.items():
+    for ua, count in ua_dict.items():
         print(f"{ua}: {count} requests")
 
 
@@ -89,7 +90,7 @@ def main():
     parser.add_argument("-i", "--ipcounts", action="store_true", help="Find unique IPs and the number of HTTP requests sent.")
     parser.add_argument("-b", "--busyhours", action="store_true", help="Find the busiest hour of each day (in chronological order).")
     parser.add_argument("-u", "--useragents", action="store_true", help="Find unique User Agents and number of occurrences.")
-    parser.add_argument("-s", "--sort", action="store_true", help="Sorts results (only for -i|-u)")
+    parser.add_argument("-s", "--sort", action="store_true", help="Sorts results DESC (only for -i|-u)")
 
     args=parser.parse_args()
     path=args.PATH
